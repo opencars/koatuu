@@ -1,65 +1,57 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
+	"fmt"
+	"io/ioutil"
 	"log"
+	"os"
+	"path/filepath"
 
-	"github.com/opencars/koatuu/internal/database"
-	"github.com/opencars/koatuu/internal/model"
-	"github.com/opencars/koatuu/pkg/parser"
+	"github.com/opencars/koatuu/pkg/model"
 )
 
-var path = flag.String("path", "data/koatuu.json", "Path to data file")
-
 func main() {
+	var configPath string
+
+	flag.StringVar(&configPath, "config", "./config/config.toml", "Path to the configuration file")
+
 	flag.Parse()
 
-	data, err := parser.Parse(*path)
+	path := flag.Arg(0)
+
+	// Check ext. "json"
+	if filepath.Ext(path) != ".json" {
+		log.Fatal("extension is not valid")
+	}
+
+	file, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	db := database.Must(database.DB())
-	defer db.Close()
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	for _, lvl1 := range data.Level1 {
-		lvl := model.Level1Territory{
-			Code: lvl1.Code,
-			Name: lvl1.Name,
-		}
+	var head model.Head
+	if json.Unmarshal(data, &head) != nil {
+		log.Fatal(err)
+	}
 
-		if err := db.Insert(&lvl); err != nil {
-			panic(err)
-		}
+	defer file.Close()
+
+	for _, lvl1 := range head.Level1 {
+		// TODO: Insert into level1.
 		for _, lvl2 := range lvl1.Level2 {
-			lvl := model.Level2Territory{
-				Code:     lvl2.Code,
-				Name:     lvl2.Name,
-				ParentID: lvl.ID,
-			}
-			if err := db.Insert(&lvl); err != nil {
-				panic(err)
-			}
-			for _, lvl3 := range lvl2.Level3 {
-				lvl := model.Level3Territory{
-					Code:     lvl3.Code,
-					Name:     lvl3.Name,
-					Type:     lvl3.Type,
-					ParentID: lvl.ID,
-				}
-				if err := db.Insert(&lvl); err != nil {
-					panic(err)
-				}
-				for _, lvl4 := range lvl3.Level4 {
-					lvl := model.Level4Territory{
-						Code:     lvl4.Code,
-						Name:     lvl4.Name,
-						Type:     lvl4.Type,
-						ParentID: lvl.ID,
-					}
-					if err := db.Insert(&lvl); err != nil {
-						panic(err)
-					}
+			// TODO: Insert into level2.
+			for _, lv3 := range lvl2.Level3 {
+				// TODO: Insert into level3.
+				for _, lv4 := range lv3.Level4 {
+					// TODO: Insert into level4.
+					fmt.Println(lv4)
 				}
 			}
 		}
