@@ -45,8 +45,6 @@ github.com/opencars/govdata v0.0.3/go.mod h1:8vkBy7AEN8Y30qOq3l94j12gGfMob1vGzj6
 github.com/opencars/translit v0.1.1/go.mod h1:oF++zoR3fcy5wDWFS+8+I7X/aJ+PS8k5I4KsOKvq4cU=
 github.com/opencars/translit v0.1.2 h1:Gab6Z8IWgRAV6MbxNk53xAKQJ8ZViQOTfhvMOSH7x+I=
 github.com/opencars/translit v0.1.2/go.mod h1:oF++zoR3fcy5wDWFS+8+I7X/aJ+PS8k5I4KsOKvq4cU=
-github.com/opencars/wanted v0.1.19 h1:3zCHbsXBAWxcJ0FkTu85CkpnOv9can79FBPOsPao3SU=
-github.com/opencars/wanted v0.1.19/go.mod h1:ouAtQ3eUGW5eTdnReGvoIYffdnAd6cy6V2YXpP/5YXk=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/sirupsen/logrus v1.4.2 h1:SPIRibHv4MatM3XXNO2BJeFLZwZ2LvZgfQ5+UNI2im4=

@@ -27,11 +27,11 @@ func (r *Level3Repository) Create(level *model.ThirdLevel) error {
 	return nil
 }
 
-func (r *Level3Repository) FindByID(id string) (*model.Kek, error) {
-	var level model.Kek
+func (r *Level3Repository) FindByID(id string) (*model.ThirdLevel, error) {
+	var level model.ThirdLevel
 
 	err := r.store.db.Get(&level,
-		`SELECT id, name FROM level3 WHERE id = $1`,
+		`SELECT id, name, kind FROM level3 WHERE id = $1`,
 		id,
 	)
 

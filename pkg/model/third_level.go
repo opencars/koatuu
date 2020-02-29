@@ -30,8 +30,8 @@ type ThirdLevel struct {
 	ID            string         `json:"id" db:"id"`
 	Name          string         `json:"name" db:"name"`
 	Kind          ThirdLevelKind `json:"kind" db:"kind"`
-	FirstLevelID  string         `json:"level1_id" db:"level1_id"`
-	SecondLevelID string         `json:"level2_id" db:"level2_id"`
+	FirstLevelID  string         `json:"level1_id,omitempty" db:"level1_id"`
+	SecondLevelID string         `json:"level2_id,omitempty" db:"level2_id"`
 }
 
 // NewSecondLevel creates new instance of NewSecondLevel.

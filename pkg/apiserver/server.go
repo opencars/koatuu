@@ -76,6 +76,7 @@ func (s *server) findByCode() handler.Handler {
 				res.Name += ", " + res.Level3.Name
 			}
 		}
+
 		if id[8:] != "00" {
 			res.Level4, err = s.store.Level4().FindByID(id)
 			if err != nil {
