@@ -1,9 +1,11 @@
 package sqlstore
 
 import (
+	"database/sql"
 	"strconv"
 
 	"github.com/opencars/koatuu/pkg/model"
+	"github.com/opencars/wanted/pkg/store"
 )
 
 type Level3Repository struct {
@@ -29,6 +31,21 @@ func (r *Level3Repository) Create(level model.Level) error {
 	return nil
 }
 
-// func (r *Level3Repository) FindByID() (*model.Level3, error) {
-// 	return nil, nil
-// }
+func (r *Level3Repository) FindByID(id string) (*model.Kek, error) {
+	var level model.Kek
+
+	err := r.store.db.Get(&level,
+		`SELECT id, name FROM level3 WHERE id = $1`,
+		id,
+	)
+
+	if err == sql.ErrNoRows {
+		return nil, store.ErrRecordNotFound
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &level, nil
+}

@@ -4,27 +4,23 @@ import (
 	"github.com/opencars/koatuu/pkg/model"
 )
 
-type Level1Repository interface {
+type LevelRepository interface {
 	Create(model.Level) error
-	FindByID() (*model.Level, error)
+	FindByID(id string) (*model.Kek, error)
+}
+
+type Level1Repository interface {
+	LevelRepository
 }
 
 type Level2Repository interface {
-	Create(model.Level) error
-	FindByID() (*model.Level, error)
+	LevelRepository
 }
 
 type Level3Repository interface {
-	Create(model.Level) error
-	FindByID() (*model.Level, error)
+	LevelRepository
 }
 
 type Level4Repository interface {
-	Create(model.Level) error
-	// FindByID() (*model.Level4, error)
-}
-
-type AreaRepository interface {
-	Create(model.Level) error
-	FindByID() (*model.Area, error)
+	LevelRepository
 }

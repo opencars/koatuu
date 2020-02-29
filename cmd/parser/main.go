@@ -58,26 +58,31 @@ func main() {
 	for i, level := range levels {
 		fmt.Println(i, level)
 
-		if err := store.Level1().Create(level); err != nil {
-			log.Fatal(err)
-		}
-
-		if level.SecondLevel != "" {
-			if err := store.Level2().Create(level); err != nil {
+		if level.ForthLevel != "" {
+			if err := store.Level4().Create(level); err != nil {
 				log.Fatal(err)
 			}
+
+			continue
 		}
 
 		if level.ThirdLevel != "" {
 			if err := store.Level3().Create(level); err != nil {
 				log.Fatal(err)
 			}
+			continue
 		}
 
-		if level.ForthLevel != "" {
-			if err := store.Level4().Create(level); err != nil {
+		if level.SecondLevel != "" {
+			if err := store.Level2().Create(level); err != nil {
 				log.Fatal(err)
 			}
+			continue
 		}
+
+		if err := store.Level1().Create(level); err != nil {
+			log.Fatal(err)
+		}
+
 	}
 }

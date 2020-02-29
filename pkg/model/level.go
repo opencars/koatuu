@@ -9,6 +9,11 @@ type Level struct {
 	Name        string `json:"name"`
 }
 
+type Kek struct {
+	ID   string `json:"id" db:"id"`
+	Name string `json:"name" db:"name"`
+}
+
 type Area struct {
 	FirstLevel  LevelInfo `json:"level1"`
 	SecondLevel LevelInfo `json:"level2"`

@@ -17,7 +17,7 @@ func TestMain(m *testing.M) {
 		Port:     5432,
 		User:     "postgres",
 		Password: os.Getenv("DATABASE_PASSWORD"),
-		name:     "koatuu_test",
+		Name:     "koatuu_test",
 	}
 
 	if conf.Host == "" {

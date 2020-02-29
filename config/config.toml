@@ -1,9 +1,9 @@
 [database]
-host = "127.0.0.1"
+host = "db.opencars.app"
 port = 5432
 username = "postgres"
-password = ""
-database = "koatuu_test"
+password = "MzOTyhO7UTcJkWZi"
+database = "koatuu"
 pool = 10
 
 [parser]
