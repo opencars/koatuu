@@ -1,33 +1,22 @@
 package model
 
 type Level struct {
-	Code string `json:"code"`
-	Name string `json:"name"`
+	FirstLevel  string `json:"level1"`
+	SecondLevel string `json:"level2"`
+	ThirdLevel  string `json:"level3"`
+	ForthLevel  string `json:"level4"`
+	Category    string `json:"category"`
+	Name        string `json:"name"`
 }
 
-type Head struct {
-	Level1 []Level1 `json:"level1"`
+type Area struct {
+	FirstLevel  LevelInfo `json:"level1"`
+	SecondLevel LevelInfo `json:"level2"`
+	ThirdLevel  LevelInfo `json:"level3"`
+	ForthLevel  LevelInfo `json:"level4"`
 }
 
-type Level1 struct {
-	Level
-	Type   string   `json:"type"`
-	Level2 []Level2 `json:"level2"`
-}
-
-type Level2 struct {
-	Level
-	Type   string   `json:"type"`
-	Level3 []Level3 `json:"level3"`
-}
-
-type Level3 struct {
-	Level
-	Type   string   `json:"type"`
-	Level4 []Level4 `json:"level4"`
-}
-
-type Level4 struct {
-	Level
-	Type string `json:"type"`
+type LevelInfo struct {
+	Name string
+	Kind string
 }

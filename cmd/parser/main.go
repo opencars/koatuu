@@ -9,7 +9,9 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/opencars/koatuu/pkg/config"
 	"github.com/opencars/koatuu/pkg/model"
+	"github.com/opencars/koatuu/pkg/store/sqlstore"
 )
 
 func main() {
@@ -20,6 +22,16 @@ func main() {
 	flag.Parse()
 
 	path := flag.Arg(0)
+
+	settings, err := config.New(configPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	store, err := sqlstore.New(&settings.DB)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Check ext. "json"
 	if filepath.Ext(path) != ".json" {
@@ -36,25 +48,36 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var head model.Head
-	if json.Unmarshal(data, &head) != nil {
+	var levels []model.Level
+	if err := json.Unmarshal(data, &levels); err != nil {
 		log.Fatal(err)
 	}
 
 	defer file.Close()
 
-	for _, lvl1 := range head.Level1 {
-		// TODO: Insert into level1.
-		for _, lvl2 := range lvl1.Level2 {
-			// TODO: Insert into level2.
-			for _, lv3 := range lvl2.Level3 {
-				// TODO: Insert into level3.
-				for _, lv4 := range lv3.Level4 {
-					// TODO: Insert into level4.
-					fmt.Println(lv4)
-				}
+	for i, level := range levels {
+		fmt.Println(i, level)
+
+		if err := store.Level1().Create(level); err != nil {
+			log.Fatal(err)
+		}
+
+		if level.SecondLevel != "" {
+			if err := store.Level2().Create(level); err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		if level.ThirdLevel != "" {
+			if err := store.Level3().Create(level); err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		if level.ForthLevel != "" {
+			if err := store.Level4().Create(level); err != nil {
+				log.Fatal(err)
 			}
 		}
 	}
-
 }

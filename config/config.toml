@@ -3,7 +3,7 @@ host = "127.0.0.1"
 port = 5432
 username = "postgres"
 password = ""
-database = "operations"
+database = "koatuu_test"
 pool = 10
 
 [parser]

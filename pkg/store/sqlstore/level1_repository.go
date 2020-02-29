@@ -8,14 +8,14 @@ type Level1Repository struct {
 	store *Store
 }
 
-func (r *Level1Repository) Create(level1 model.Level1) error {
-	_, err := r.store.db.NamedExec(
+func (r *Level1Repository) Create(level model.Level) error {
+	_, err := r.store.db.Exec(
 		`INSERT INTO level1 (
 			id, name
 		) VALUES (
-			:id, :name
-		)`,
-		level1,
+			$1, $2
+		) ON CONFLICT DO NOTHING`,
+		level.FirstLevel[:2], level.Name,
 	)
 
 	if err != nil {
@@ -25,6 +25,6 @@ func (r *Level1Repository) Create(level1 model.Level1) error {
 	return nil
 }
 
-func (r *Level1Repository) FindByID() (*model.Level1, error) {
-	return nil, nil
-}
+// func (r *Level1Repository) FindByID() (*model.Level1, error) {
+// 	return nil, nil
+// }

@@ -11,8 +11,12 @@ import (
 
 // Store is an implementation of store.Store interface based on SQL.
 type Store struct {
-	db                 *sqlx.DB
-	level1Repository   *Level1Repository
+	db *sqlx.DB
+
+	level1Repository *Level1Repository
+	level2Repository *Level2Repository
+	level3Repository *Level3Repository
+	level4Repository *Level4Repository
 }
 
 func (s *Store) Level1() store.Level1Repository {
@@ -25,6 +29,42 @@ func (s *Store) Level1() store.Level1Repository {
 	}
 
 	return s.level1Repository
+}
+
+func (s *Store) Level2() store.Level2Repository {
+	if s.level2Repository != nil {
+		return s.level2Repository
+	}
+
+	s.level2Repository = &Level2Repository{
+		store: s,
+	}
+
+	return s.level2Repository
+}
+
+func (s *Store) Level3() store.Level3Repository {
+	if s.level3Repository != nil {
+		return s.level3Repository
+	}
+
+	s.level3Repository = &Level3Repository{
+		store: s,
+	}
+
+	return s.level3Repository
+}
+
+func (s *Store) Level4() store.Level4Repository {
+	if s.level4Repository != nil {
+		return s.level4Repository
+	}
+
+	s.level4Repository = &Level4Repository{
+		store: s,
+	}
+
+	return s.level4Repository
 }
 
 // New returns new instance of Store.
