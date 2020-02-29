@@ -21,7 +21,7 @@ type SecondLevel struct {
 	ID           string          `json:"id" db:"id"`
 	Name         string          `json:"name" db:"name"`
 	Kind         SecondLevelKind `json:"kind" db:"kind"`
-	FirstLevelID string          `json:"level1_id" db:"level1_id"`
+	FirstLevelID string          `json:"level1_id,omitempty" db:"level1_id"`
 }
 
 // NewSecondLevel creates new instance of NewSecondLevel.
