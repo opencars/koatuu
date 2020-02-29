@@ -2,26 +2,22 @@ package sqlstore
 
 import (
 	"database/sql"
-	"strconv"
 
 	"github.com/opencars/koatuu/pkg/model"
-	"github.com/opencars/wanted/pkg/store"
 )
 
 type Level2Repository struct {
 	store *Store
 }
 
-func (r *Level2Repository) Create(level model.Level) error {
-	code, _ := strconv.Atoi(string(level.SecondLevel[2]))
-
+func (r *Level2Repository) Create(level *model.SecondLevel) error {
 	_, err := r.store.db.Exec(
 		`INSERT INTO level2 (
 			id, name, kind, level1_id
 		) VALUES (
 			$1, $2, $3, $4
 		) ON CONFLICT DO NOTHING`,
-		level.SecondLevel[:5], level.Name, code, level.FirstLevel[:2],
+		level.ID, level.Name, level.Kind, level.FirstLevelID,
 	)
 
 	if err != nil {
@@ -40,7 +36,7 @@ func (r *Level2Repository) FindByID(id string) (*model.Kek, error) {
 	)
 
 	if err == sql.ErrNoRows {
-		return nil, store.ErrRecordNotFound
+		return nil, nil
 	}
 
 	if err != nil {

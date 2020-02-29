@@ -14,11 +14,13 @@ type Level1Repository interface {
 }
 
 type Level2Repository interface {
-	LevelRepository
+	Create(level *model.SecondLevel) error
+	FindByID(id string) (*model.Kek, error)
 }
 
 type Level3Repository interface {
-	LevelRepository
+	Create(level *model.ThirdLevel) error
+	FindByID(id string) (*model.Kek, error)
 }
 
 type Level4Repository interface {

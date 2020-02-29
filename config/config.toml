@@ -3,7 +3,7 @@ host = "db.opencars.app"
 port = 5432
 username = "postgres"
 password = "MzOTyhO7UTcJkWZi"
-database = "koatuu"
+database = "koatuu_v2"
 pool = 10
 
 [parser]

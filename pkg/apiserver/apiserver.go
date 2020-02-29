@@ -1,6 +1,7 @@
 package apiserver
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/opencars/koatuu/pkg/config"
@@ -8,7 +9,7 @@ import (
 )
 
 // Start starts the server with postgres store.
-func Start(settings *config.Settings) error {
+func Start(addr string, settings *config.Settings) error {
 	store, err := sqlstore.New(&settings.DB)
 	if err != nil {
 		return err
@@ -16,5 +17,6 @@ func Start(settings *config.Settings) error {
 
 	srv := newServer(store)
 
-	return http.ListenAndServe(":8080", srv)
+	log.Printf("Listening on %s...\n", addr)
+	return http.ListenAndServe(addr, srv)
 }

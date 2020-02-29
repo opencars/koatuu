@@ -12,6 +12,7 @@ type Handler func(w http.ResponseWriter, r *http.Request) error
 // ServeHTTP allows our Handler type to satisfy http.Handler.
 func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err := h(w, r); err != nil {
+		w.Header().Set("Content-Type", "application/json")
 		switch e := err.(type) {
 		case Error:
 			// We can retrieve the status here and write out a specific HTTP status code.

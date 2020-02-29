@@ -23,7 +23,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := apiserver.Start(conf); err != nil {
+	if err := apiserver.Start(":8080", conf); err != nil {
 		log.Fatal(err)
 	}
 }

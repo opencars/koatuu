@@ -67,16 +67,28 @@ func main() {
 		}
 
 		if level.ThirdLevel != "" {
-			if err := store.Level3().Create(level); err != nil {
+			level3, err := model.NewThirdLevel(level.ThirdLevel, level.Name)
+			if err != nil {
 				log.Fatal(err)
 			}
+
+			if err := store.Level3().Create(level3); err != nil {
+				log.Fatal(err)
+			}
+
 			continue
 		}
 
 		if level.SecondLevel != "" {
-			if err := store.Level2().Create(level); err != nil {
+			level2, err := model.NewSecondLevel(level.SecondLevel, level.Name)
+			if err != nil {
 				log.Fatal(err)
 			}
+
+			if err := store.Level2().Create(level2); err != nil {
+				log.Fatal(err)
+			}
+
 			continue
 		}
 

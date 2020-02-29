@@ -4,7 +4,6 @@ import (
 	"database/sql"
 
 	"github.com/opencars/koatuu/pkg/model"
-	"github.com/opencars/wanted/pkg/store"
 )
 
 type Level1Repository struct {
@@ -37,7 +36,7 @@ func (r *Level1Repository) FindByID(id string) (*model.Kek, error) {
 	)
 
 	if err == sql.ErrNoRows {
-		return nil, store.ErrRecordNotFound
+		return nil, nil
 	}
 
 	if err != nil {

@@ -14,7 +14,6 @@ require (
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/opencars/translit v0.1.2
-	github.com/opencars/wanted v0.1.19
 	github.com/stretchr/testify v1.5.1
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	mellium.im/sasl v0.2.1 // indirect
