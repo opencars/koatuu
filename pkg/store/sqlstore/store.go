@@ -69,11 +69,12 @@ func (s *Store) Level4() store.Level4Repository {
 
 // New returns new instance of Store.
 func New(settings *config.Database) (*Store, error) {
-	info := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s",
+	info := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=%s password=%s",
 		settings.Host,
 		settings.Port,
 		settings.User,
 		settings.Name,
+		settings.SSLMode,
 		settings.Password,
 	)
 

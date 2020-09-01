@@ -2,9 +2,9 @@
 host = "127.0.0.1"
 port = 5432
 username = "postgres"
-password = ""
+password = "password"
 database = "koatuu"
-pool = 10
+ssl_mode = "disable"
 
 [parser]
 package_id = "d945de87-539c-45b4-932a-7dda57daf8d9"
