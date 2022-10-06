@@ -14,8 +14,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o /go/bin/server ./cmd/grpc-server/main.go && \
-    go build -o /go/bin/parser ./cmd/http-server/main.go && \
+RUN go build -o /go/bin/grpc-server ./cmd/grpc-server/main.go && \
+    go build -o /go/bin/http-server ./cmd/http-server/main.go && \
     go build -o /go/bin/parser ./cmd/parser/main.go
 
 FROM alpine
