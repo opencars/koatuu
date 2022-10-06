@@ -6,7 +6,7 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	"github.com/opencars/koatuu/pkg/config"
-	"github.com/opencars/koatuu/pkg/store"
+	"github.com/opencars/koatuu/pkg/domain"
 )
 
 // Store is an implementation of store.Store interface based on SQL.
@@ -19,7 +19,7 @@ type Store struct {
 	level4Repository *Level4Repository
 }
 
-func (s *Store) Level1() store.Level1Repository {
+func (s *Store) Level1() domain.Level1Repository {
 	if s.level1Repository != nil {
 		return s.level1Repository
 	}
@@ -31,7 +31,7 @@ func (s *Store) Level1() store.Level1Repository {
 	return s.level1Repository
 }
 
-func (s *Store) Level2() store.Level2Repository {
+func (s *Store) Level2() domain.Level2Repository {
 	if s.level2Repository != nil {
 		return s.level2Repository
 	}
@@ -43,7 +43,7 @@ func (s *Store) Level2() store.Level2Repository {
 	return s.level2Repository
 }
 
-func (s *Store) Level3() store.Level3Repository {
+func (s *Store) Level3() domain.Level3Repository {
 	if s.level3Repository != nil {
 		return s.level3Repository
 	}
@@ -55,7 +55,7 @@ func (s *Store) Level3() store.Level3Repository {
 	return s.level3Repository
 }
 
-func (s *Store) Level4() store.Level4Repository {
+func (s *Store) Level4() domain.Level4Repository {
 	if s.level4Repository != nil {
 		return s.level4Repository
 	}

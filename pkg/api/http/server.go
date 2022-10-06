@@ -1,4 +1,4 @@
-package apiserver
+package http
 
 import (
 	"encoding/json"
@@ -8,25 +8,27 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 
+	"github.com/opencars/koatuu/pkg/domain"
+	"github.com/opencars/koatuu/pkg/domain/command"
 	"github.com/opencars/koatuu/pkg/handler"
-	"github.com/opencars/koatuu/pkg/store"
 	"github.com/opencars/koatuu/pkg/version"
 )
 
 type server struct {
 	router *mux.Router
-	store  store.Store
+
+	svc domain.CustomerService
 }
 
-func newServer(store store.Store) *server {
-	s := &server{
+func newServer(svc domain.CustomerService) *server {
+	srv := server{
 		router: mux.NewRouter(),
-		store:  store,
+		svc:    svc,
 	}
 
-	s.configureRouter()
+	srv.configureRoutes()
 
-	return s
+	return &srv
 }
 
 func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -41,54 +43,19 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (s *server) findByCode() handler.Handler {
 	return func(w http.ResponseWriter, r *http.Request) error {
 		w.Header().Set("Content-Type", "application/json")
-		id := mux.Vars(r)["id"]
 
-		res := Result{}
-		var err error
+		c := command.Decode{
+			UserID:  UserIDFromContext(r.Context()),
+			TokenID: TokenIDFromContext(r.Context()),
+			Code:    mux.Vars(r)["id"],
+		}
 
-		res.Level1, err = s.store.Level1().FindByID(id[:2])
+		result, err := s.svc.Decode(r.Context(), &c)
 		if err != nil {
 			return err
 		}
 
-		if res.Level1 != nil {
-			res.Name = res.Level1.Name
-		}
-
-		if id[2:5] != "000" {
-			res.Level2, err = s.store.Level2().FindByID(id[:5])
-			if err != nil {
-				return err
-			}
-
-			if res.Level2 != nil {
-				res.Name += ", " + res.Level2.Name
-			}
-		}
-
-		if id[5:8] != "000" {
-			res.Level3, err = s.store.Level3().FindByID(id[:8])
-			if err != nil {
-				return err
-			}
-
-			if res.Level3 != nil {
-				res.Name += ", " + res.Level3.Name
-			}
-		}
-
-		if id[8:] != "00" {
-			res.Level4, err = s.store.Level4().FindByID(id)
-			if err != nil {
-				return err
-			}
-
-			if res.Level4 != nil {
-				res.Name += ", " + res.Level4.Name
-			}
-		}
-
-		if err := json.NewEncoder(w).Encode(res); err != nil {
+		if err := json.NewEncoder(w).Encode(result); err != nil {
 			return err
 		}
 

@@ -1,10 +1,26 @@
+log:
+  level: "debug"
+  mode: "dev"
+
+server:
+  shutdown_timeout: "15s"
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "10s"
+
 database:
-  host: "127.0.0.1"
+  host: 127.0.0.1
   port: 5432
-  username: "postgres"
-  password: "password"
-  database: "koatuu"
-  ssl_mode: "disable"
+  username: postgres
+  password: password
+  database: operations
+  ssl_mode: disable
 
 parser:
   package_id: "d945de87-539c-45b4-932a-7dda57daf8d9"
+
+nats:
+  host: "127.0.0.1"
+  port: 4222
+  user: "opencars"
+  password: "opencars"

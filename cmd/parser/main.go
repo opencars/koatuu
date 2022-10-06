@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
 
 	"github.com/opencars/koatuu/pkg/config"
-	"github.com/opencars/koatuu/pkg/model"
+	"github.com/opencars/koatuu/pkg/domain/model"
 	"github.com/opencars/koatuu/pkg/store/sqlstore"
 )
 
@@ -43,7 +43,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	data, err := ioutil.ReadAll(file)
+	data, err := io.ReadAll(file)
 	if err != nil {
 		log.Fatal(err)
 	}

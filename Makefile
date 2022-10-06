@@ -1,10 +1,7 @@
 .PHONY: default all clean
-APPS     := server parser
+APPS     := http-server grpc-server parser
 BLDDIR   := bin
-VERSION  := $(shell cat VERSION)
-
-.EXPORT_ALL_VARIABLES:
-GO111MODULE  = on
+IMPORT_BASE := github.com/opencars/koatuu
 
 default: clean all
 
