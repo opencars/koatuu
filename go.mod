@@ -10,7 +10,7 @@ require (
 	github.com/lib/pq v1.10.7
 	github.com/opencars/grpc v0.4.2
 	github.com/opencars/httputil v0.0.2
-	github.com/opencars/schema v0.0.11
+	github.com/opencars/schema v0.0.12
 	github.com/opencars/seedwork v0.0.2
 	github.com/stretchr/testify v1.8.0
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
