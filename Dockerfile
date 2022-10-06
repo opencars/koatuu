@@ -29,4 +29,4 @@ COPY ./config ./config
 
 EXPOSE 8080
 
-CMD ["./server"]
+CMD ["./http-server"]
