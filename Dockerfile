@@ -15,8 +15,9 @@ RUN go mod download
 COPY . .
 
 RUN export VERSION=$(cat VERSION) && \
-    go build -ldflags "-X github.com/opencars/wanted/pkg/version.Version=$VERSION" -o /go/bin/server ./cmd/server/main.go && \
-    go build -ldflags "-X github.com/opencars/wanted/pkg/version.Version=$VERSION" -o /go/bin/parser ./cmd/parser/main.go
+    go build -o /go/bin/server ./cmd/grpc-server/main.go && \
+    go build -o /go/bin/parser ./cmd/http-server/main.go && \
+    go build -o /go/bin/parser ./cmd/parser/main.go && \
 
 FROM alpine
 
