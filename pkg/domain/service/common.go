@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"strings"
 
 	"github.com/opencars/koatuu/pkg/domain"
 	"github.com/opencars/koatuu/pkg/domain/model"
@@ -52,6 +53,8 @@ func decode(ctx context.Context, s domain.Store, code string) (*model.Result, er
 			result.Parts = append(result.Parts, result.Level4.Name)
 		}
 	}
+
+	result.Summary = strings.Join(result.Parts, ", ")
 
 	return &result, nil
 }

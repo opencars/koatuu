@@ -38,7 +38,7 @@ type Result struct {
 	Level3  *ThirdLevel  `json:"level3,omitempty"`
 	Level4  *Level1or4   `json:"level4,omitempty"`
 	Parts   []string     `json:"parts,omitempty"`
-	Summary string       `json:"summary,omitempty"`
+	Summary string       `json:"name,omitempty"`
 }
 
 type WrappeResult struct {
