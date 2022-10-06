@@ -36,25 +36,42 @@ func (s *InternalService) BulkDecode(ctx context.Context, c *command.InternalBul
 		return nil, err
 	}
 
-	bulkResult := model.BulkResult{
-		Results: make([]model.WrappeResult, 0),
-	}
+	results := make([]model.WrappeResult, 0)
 
-	for _, code := range c.Codes {
-		result, err := decode(ctx, s.s, code)
-		if err != nil {
-			err := handleErr(err)
-			bulkResult.Results = append(bulkResult.Results, model.WrappeResult{Error: err})
+	for _, item := range c.Items {
+		if err := item.Validate(); err != nil {
+			msgs := make([]string, 0)
+			for k, vv := range seedwork.ErrorMessages("item", err) {
+				for _, v := range vv {
+					msgs = append(msgs, fmt.Sprintf("%s.%s", k, v))
+				}
+			}
+
+			results = append(results, model.WrappeResult{
+				Error: &model.DecodingError{
+					Messages: msgs,
+				},
+			})
+
 			continue
 		}
 
-		bulkResult.Results = append(bulkResult.Results, model.WrappeResult{
+		result, err := decode(ctx, s.s, item.Code)
+		if err != nil {
+			err := handleErr(err)
+			results = append(results, model.WrappeResult{Error: err})
+			continue
+		}
+
+		results = append(results, model.WrappeResult{
 			Result: result,
 		})
 
 	}
 
-	return &bulkResult, nil
+	return &model.BulkResult{
+		Results: results,
+	}, nil
 }
 
 func handleErr(err error) *model.DecodingError {

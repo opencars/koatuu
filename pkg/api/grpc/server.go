@@ -14,8 +14,15 @@ type handler struct {
 }
 
 func (h *handler) Decode(ctx context.Context, req *koatuu.DecodeRequest) (*koatuu.DecodeResultList, error) {
+	items := make([]command.Item, 0, len(req.Codes))
+	for _, code := range req.Codes {
+		items = append(items, command.Item{
+			Code: code,
+		})
+	}
+
 	c := command.InternalBulkDecode{
-		Codes: req.Codes,
+		Items: items,
 	}
 
 	result, err := h.api.svc.BulkDecode(ctx, &c)
