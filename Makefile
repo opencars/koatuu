@@ -1,17 +1,16 @@
 .PHONY: default all clean
-APPS     := server parser
+APPS     := http-server grpc-server parser
 BLDDIR   := bin
 VERSION  := $(shell cat VERSION)
-
-.EXPORT_ALL_VARIABLES:
-GO111MODULE  = on
+IMPORT_BASE := github.com/opencars/koatuu
+LDFLAGS  := -ldflags "-X $(IMPORT_BASE)/pkg/version.Version=$(VERSION)"
 
 default: clean all
 
 all: $(APPS)
 
 $(BLDDIR)/%:
-	go build -o $@ ./cmd/$*
+	go build $(LDFLAGS) -o $@ ./cmd/$*
 
 $(APPS): %: $(BLDDIR)/%
 

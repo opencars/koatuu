@@ -2,8 +2,9 @@ package sqlstore
 
 import (
 	"database/sql"
+	"errors"
 
-	"github.com/opencars/koatuu/pkg/model"
+	"github.com/opencars/koatuu/pkg/domain/model"
 )
 
 type Level3Repository struct {
@@ -35,11 +36,11 @@ func (r *Level3Repository) FindByID(id string) (*model.ThirdLevel, error) {
 		id,
 	)
 
-	if err == sql.ErrNoRows {
-		return nil, nil
-	}
-
 	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, model.ErrLocationNotFound
+		}
+
 		return nil, err
 	}
 
