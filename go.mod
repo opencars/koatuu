@@ -1,6 +1,6 @@
 module github.com/opencars/koatuu
 
-go 1.19
+go 1.23
 
 require (
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
@@ -13,6 +13,7 @@ require (
 	github.com/opencars/schema v0.0.12
 	github.com/opencars/seedwork v0.0.2
 	github.com/stretchr/testify v1.8.0
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
 	google.golang.org/grpc v1.50.0
 	google.golang.org/protobuf v1.28.1

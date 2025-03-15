@@ -1,5 +1,5 @@
 .PHONY: default all clean
-APPS     := http-server grpc-server parser
+APPS     := server parser
 BLDDIR   := bin
 IMPORT_BASE := github.com/opencars/koatuu
 
