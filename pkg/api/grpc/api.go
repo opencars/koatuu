@@ -6,6 +6,7 @@ import (
 
 	"github.com/opencars/grpc/pkg/koatuu"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 
 	"github.com/opencars/koatuu/pkg/domain"
 )
@@ -39,6 +40,7 @@ func (a *API) Run(ctx context.Context) error {
 	defer listener.Close()
 
 	koatuu.RegisterServiceServer(a.s, &handler{api: a})
+	reflection.Register(a.s)
 
 	errors := make(chan error)
 	go func() {
